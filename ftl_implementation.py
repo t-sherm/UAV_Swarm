@@ -14,7 +14,7 @@ import dronekit
 
 # Startup
 # Connect to vehicle
-vehicle = connect('127.0.0.1:14550', wait_ready=True)
+vehicle = connect('/dev/serial0', wait_ready=True, baud = 57600)
 # Send ack of successful connect
 # ---------- TODO -----------------
 # Tristan Cady: make a function that sends an ack
@@ -24,8 +24,8 @@ vehicle = connect('127.0.0.1:14550', wait_ready=True)
 safetySw = 0
 while safetySw < 1500:
     
-    safetySw = vehicle.channels['1']
-    print (" Ch1: %s" % safetySw)
+    safetySw = vehicle.channels['5']
+    print (" Ch5: %s" % safetySw)
     
 
 # Wait for receipt of messages
