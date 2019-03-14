@@ -7,7 +7,10 @@ Tristan Sherman
 
 Cool stuff UAV Swarm Cal Poly Pomona 2019
 """
+
 import ftl_definitions
+from ftl_definitions import *
+
 import sys
 import dronekit
 from dronekit import connect
