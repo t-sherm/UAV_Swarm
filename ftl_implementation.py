@@ -47,7 +47,7 @@ while True:
         #Calculatie new position      
         # Get velocity and position of the controlled boid
         boid[0].velocity = vehicle.velocity
-        boid[0].position = vehicle.global_relative_frame
+        boid[0].position = vehicle.location.global_relative_frame
             
         # Obtain the heading value of the controlled boid
         boid[0].hdg = vehicle.heading
