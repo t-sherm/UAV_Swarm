@@ -63,8 +63,8 @@ while True:
         
         
         #Calculate steering vector for the boid
-        cohesionVector = calculateCohesionVector(boid[0],1)
-        separationVector = calculateSeparationVector(boid[0],1)
+        cohesionVector = calculateCohesionVector(boid[0],0)
+        separationVector = calculateSeparationVector(boid[0],0)
         velocity = updateVelocity(boid[0],1,cohesionVector, separationVector)
         
         # Command a velocity to the boid
