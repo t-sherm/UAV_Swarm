@@ -11,6 +11,31 @@ Tristan Sherman
 import math
 
 
+#Set up boid class    
+class Boid:
+   'Boid class'
+   empCount = 0
+   
+   def __init__(self, name, position, velocity):
+      self.position = position
+      self.velocity = velocity
+      self.name = name
+      self.count = 0
+      Boid.empCount += 1
+      Boid.stickTime = 0
+      #Constants for vectors
+      Boid.momentumConstant = 100
+      Boid.cohesionConstant = .4
+      Boid.separationConstant = .45
+      Boid.velocityConstant = .2
+      Boid.boundaryConstant = .4
+      Boid.eccentricityConstant = 1
+      Boid.eccentricityVector = [0,0,0]
+      Boid.sameVelocity = 1
+      Boid.gradientConstant = .1
+      #a, b, c from distance equation
+      Boid.boundaryStick = [0,0,0,0] #[If we are avoiding boundaries, a, b,c]
+
 # Controllable variables
 
 phantomDistance = 10 # meters. Distance behind 
