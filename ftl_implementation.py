@@ -32,6 +32,8 @@ while safetySw < 1500:
 # ------------ TODO -------------
 # Tristan Cady: Somehow have the code wait until we make sure the connection to the other computer is secured
 
+boid[0] = Boid('ourBoid',[ 0, 0, 0], [0, 0, 0])
+boid[1] = Boid('otherBoid', [ 0, 0, 0], [0, 0, 0])
 
 # While loop ------------------------
 while True:
@@ -40,11 +42,11 @@ while True:
         
         #Calculatie new position      
         # Get velocity and position of the controlled boid
-        boid.velocity = vehicle.velocity
-        boid.position = vehicle.global_relative_frame
+        boid[0].velocity = vehicle.velocity
+        boid[0].position = vehicle.global_relative_frame
             
         # Obtain the heading value of the controlled boid
-        boid.hdg = vehicle.heading
+        boid[0].hdg = vehicle.heading
         
     
         # ---------------------- TODO ------------------------
@@ -57,9 +59,9 @@ while True:
         
         
         #Calculate steering vector for the boid
-        cohesionVector = calculateCohesionVector(boid,j)
-        separationVector = calculateSeparationVector(boid,j)
-        velocity = updateVelocity(boid,1,cohesionVector, separationVector)
+        cohesionVector = calculateCohesionVector(boid[0],1)
+        separationVector = calculateSeparationVector(boid[0],1)
+        velocity = updateVelocity(boid[0],1,cohesionVector, separationVector)
         
         # Command a velocity to the boid
         send_ned_velocity(vehicle, velocity[0], velocity[1], [2], 1)
