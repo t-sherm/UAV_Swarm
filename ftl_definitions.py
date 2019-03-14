@@ -158,7 +158,7 @@ def calculateCohesionVector(boidVector, currentBoid):
     # Maybe don't need this
     if R_phantom_mag < .01:
         stop = 1;
-    else:
+   
         
     # Non dimensionalized velocity magnitude using plot of inverse tangent
     cohesionMag = 2/pi * math.atan(x * relaxDistance/6)
