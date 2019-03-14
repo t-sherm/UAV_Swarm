@@ -10,7 +10,7 @@ Cool stuff UAV Swarm Cal Poly Pomona 2019
 import ftl_definitions
 import sys
 import dronekit
-
+from dronekit import connect
 
 # Startup
 # Connect to vehicle
