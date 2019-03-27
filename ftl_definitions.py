@@ -9,7 +9,7 @@ Tristan Sherman
 """
 
 import math
-
+pi = 3.1415
 
 #Set up boid class    
 class Boid:
@@ -19,6 +19,7 @@ class Boid:
    def __init__(self, name, position, velocity):
       self.position = position
       self.velocity = velocity
+      Boid.hdg = 0
       self.name = name
       self.count = 0
       Boid.empCount += 1
@@ -47,6 +48,12 @@ relaxDistance = 4 # meters
 # Distance from the other drone that it is allowed to be
 separationDistance = 5 # meters
 
+#Magnitude of vector
+def mag(vector):
+    square = [abs(x**2) for x in vector]
+    sumInside = sum(square)
+    magnitude = [ math.sqrt(sumInside) ]
+    return magnitude
 
 # Vector normalization
 def norm(vector):
@@ -84,15 +91,15 @@ def GPStoNED(currentPos, nextPos):
     # simplifies the equation
     
     # Calculate x cartesian distance (longitude distance): no longer NED frame
-    varDlon = (cos(latRad))^2 * (sin(deltaLon/2))^2
-    dx_cart = 2 * atan2(sqrt(varDlon),sqrt(1-varDlon)) * RADIUS_EARTH * KM_TO_M
+    varDlon = (math.cos(latRad))**2 * (math.sin(deltaLon/2))**2
+    dx_cart = 2 * math.atan2(math.sqrt(varDlon),math.sqrt(1-varDlon)) * RADIUS_EARTH * KM_TO_M
     
     if deltaLon < 0:
         dx_cart = -dx_cart
     
         
     # Calculate dlat. Assume dlon = 0
-    varDlat = math.sin(deltaLat/2)^2
+    varDlat = math.sin(deltaLat/2)**2
     dy_cart = 2 * math.atan2(math.sqrt(varDlat),math.sqrt(1-varDlat)) * RADIUS_EARTH * KM_TO_M
     
     if deltaLat < 0:
@@ -150,24 +157,24 @@ def calculateCohesionVector(boidVector, currentBoid):
     # Total vector addition to get distance from current position to phantom    
     R_phantom = [x+y for x,y in zip(R_current_to_leader, phantomDisplacement)]
   
-    R_phantom_mag = norm(R_phantom)  # Magnitude of vector
+    R_phantom_mag = mag(R_phantom)  # Magnitude of vector
     
     # Angle to phantom drone atan2 = (longitude - East (y)/ latitude - North (x))
     theta_phantom  = math.atan2(R_phantom[0], R_phantom[1])
 
     # Maybe don't need this
-    if R_phantom_mag < .01:
+    if R_phantom_mag[0] < .01:
         stop = 1;
    
         
     # Non dimensionalized velocity magnitude using plot of inverse tangent
-    cohesionMag = 2/pi * math.atan(x * relaxDistance/6)
+    cohesionMag = 2/pi * math.atan(R_phantom_mag[0] * relaxDistance/6)
     
     # Vector pointing towards the phantom vector with magnitude relative to V_max
     # [ Vx, Vy, Vz, New Heading angle]
-    cohesionVector = [cohesionMag * math.cos(theta_phantom), cohesionMag * math.sin(theta_phantom), 0, leaderHdg]
-
-    return [cohesionVector, stop]
+    #cohesionVector = [cohesionMag * math.cos(theta_phantom), cohesionMag * math.sin(theta_phantom), 0, leaderHdg]
+    cohesionVector = [0, 0, 0, 0]
+    return cohesionVector
 
 
 
@@ -181,21 +188,22 @@ def calculateSeparationVector(boidVector, currentBoid):
     currentHdg = boidVector[currentBoid].hdg # heading of controlled drone
     
     R_to_leader = GPStoNED(currentPosition, leaderPosition)
-    R_mag = norm(R_to_later)
-    
-    if R_mag <= separationDistance:
+    R_mag = mag(R_to_leader)
+    print(R_mag)
+    if R_mag[0] <= separationDistance:
         
         # Starting at 20% of maximum velocity
-        separationMagnitude = 0.2 * 1/(R_mag/separationDistance)
+        separationMagnitude = 0.2 * 1/(R_mag[0]/separationDistance)
         
         #Separation vector = direction of (currentPosition - other boid position) * magnitude
-        separationVector = [x/-R_mag for x in R_to_leader]
+        separationVector = [x/-R_mag[0] for x in R_to_leader]
         separationVector = [x * separationMagnitude for x in separationVector]
         
                             #    Vx                       Vy        alt  hdg
-        separationVector = [separationVector[0], separationVector[1], 0,  0  ]
-                
+        #separationVector = [separationVector[0], separationVector[1], 0,  0  ]
+        separationVector = [0,0,0,0]       
         return separationVector
+    return [0,0,0,0]
     
     
     # Updates the boid's velocity vector with factors included
@@ -203,7 +211,7 @@ def updateVelocity(boidVector,boid,cohesion, separation):
     
     # Velocity = cohesion + separation vectors * Vmax
     velocity = [x+y for x,y in zip(cohesion, separation)]
-    velcotiy = [x * Vmax for x in velocity]
+    velocity = [x * Vmax for x in velocity]
     velocity[3] = cohesion[3] # heading
     
     return velocity
