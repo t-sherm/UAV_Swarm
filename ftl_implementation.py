@@ -64,12 +64,12 @@ while True:
         
         
         #Calculate steering vector for the boid
-        cohesionVector = calculateCohesionVector(boid,0)
-        separationVector = calculateSeparationVector(boid,0)
-        velocity = updateVelocity(boid,1,cohesionVector, separationVector)
+        cohesionVector = ftl_definitions.calculateCohesionVector(boid,0)
+        separationVector = ftl_definitions.calculateSeparationVector(boid,0)
+        velocity = ftl_definitions.updateVelocity(boid,1,cohesionVector, separationVector)
         
         # Command a velocity to the boid
-        send_ned_velocity(vehicle, velocity[0], velocity[1], [2], 1)
+        ftl.definitions.send_ned_velocity(vehicle, velocity[0], velocity[1], velocity[2], 1)
        
         # Command heading (rotation/yaw)
         command_yaw(velocity[3], relative=False)   
