@@ -36,8 +36,8 @@ while safetySw < 1500:
 # Tristan Cady: Somehow have the code wait until we make sure the connection to the other computer is secured
 
 boid = [1]*2
-boid[0] = Boid('ourBoid',[ 0, 0, 0], [0, 0, 0])
-boid[1] = Boid('otherBoid', [ 0, 0, 0], [0, 0, 0])
+boid[0] = Boid('ourBoid',[ 1, 0, 0], [0, 0, 0])
+boid[1] = Boid('otherBoid', [ 0, 1, 0], [0, 0, 0])
 
 # While loop ------------------------
 while True:
