@@ -13,7 +13,8 @@ from ftl_definitions import *
 
 import sys
 import dronekit
-from dronekit import connect
+from dronekit import connect, VehicleMode, LocationGlobalRelative, LocationGlobal, Command
+from pymavlink import mavutil
 
 # Startup
 # Connect to vehicle
