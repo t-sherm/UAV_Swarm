@@ -47,7 +47,7 @@ while True:
         #Calculatie new position      
         # Get velocity and position of the controlled boid
         boid[0].velocity = vehicle.velocity
-        boid[0].position = vehicle.location.global_relative_frame
+        boid[0].position = [vehicle.location.global_relative_frame.lat, vehicle.location.global_relative_frame.lon, vehicle.location.global_relative_frame.alt] 
             
         # Obtain the heading value of the controlled boid
         boid[0].hdg = vehicle.heading
@@ -63,9 +63,9 @@ while True:
         
         
         #Calculate steering vector for the boid
-        cohesionVector = calculateCohesionVector(boid[0],0)
-        separationVector = calculateSeparationVector(boid[0],0)
-        velocity = updateVelocity(boid[0],1,cohesionVector, separationVector)
+        cohesionVector = calculateCohesionVector(boid,0)
+        separationVector = calculateSeparationVector(boid,0)
+        velocity = updateVelocity(boid,1,cohesionVector, separationVector)
         
         # Command a velocity to the boid
         send_ned_velocity(vehicle, velocity[0], velocity[1], [2], 1)
