@@ -10,6 +10,7 @@ Cool stuff UAV Swarm Cal Poly Pomona 2019
 
 import ftl_definitions
 from ftl_definitions import *
+import time
 
 import sys
 import dronekit
