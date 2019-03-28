@@ -69,7 +69,7 @@ while True:
         velocity = ftl_definitions.updateVelocity(boid,1,cohesionVector, separationVector)
         
         # Command a velocity to the boid
-        ftl.definitions.send_ned_velocity(vehicle, velocity[0], velocity[1], velocity[2], 1)
+        ftl_definitions.send_ned_velocity(vehicle, velocity[0], velocity[1], velocity[2], 1)
        
         # Command heading (rotation/yaw)
         command_yaw(velocity[3], relative=False)   
