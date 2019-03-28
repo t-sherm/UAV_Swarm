@@ -72,7 +72,7 @@ while True:
         ftl_definitions.send_ned_velocity(vehicle, velocity[0], velocity[1], velocity[2], 1)
        
         # Command heading (rotation/yaw)
-        command_yaw(velocity[3], relative=False)   
+        command_yaw(vehicle, velocity[3], relative=False)   
         
         
         
