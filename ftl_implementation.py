@@ -49,7 +49,8 @@ while True:
         # Get velocity and position of the controlled boid
         boid[0].velocity = vehicle.velocity
         boid[0].position = [vehicle.location.global_relative_frame.lat, vehicle.location.global_relative_frame.lon, vehicle.location.global_relative_frame.alt] 
-            
+        print(boid[0].position[0])
+        print(boid[0].position[1])
         # Obtain the heading value of the controlled boid
         boid[0].hdg = vehicle.heading
         
@@ -78,3 +79,6 @@ while True:
         
     else:
         print("Code stalled. Waiting for safety switch to reactivate")
+        
+    
+    time.sleep(1)
