@@ -24,7 +24,7 @@ vehicle = connect('/dev/serial0', wait_ready=True, baud = 57600)
 
 # Wait for toggle from aircraft
 # Takeoff to 10m
-safetySw = 0
+safetySw = 1600
 while safetySw < 1500:
     
     safetySw = vehicle.channels['5']
