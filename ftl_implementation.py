@@ -106,7 +106,7 @@ while True:
         # TRISTAN CADY: Obtain position, velocity, and heading of other drone
         # Obtain position, velocity and heading of the other boid
         while network.available():
-            header, o_payload = network.read(12)
+            header, o_payload = network.read(16)
             lat, lon, alt, hdg = unpack('<ffff', bytes(o_payload))
             print('Recieved Payload', ' Lat: ', lat, ' Lon: ', lon, ' Alt:', alt, ' Hdg: ', hdg, ' | From ', oct(header.from_node))
             boid[1].position[0] = lat
