@@ -218,7 +218,7 @@ def updateVelocity(boidVector,boid,cohesion, separation):
     return velocity
 
 
-def command_yaw(heading, relative=False):
+def command_yaw(vehicle, heading, relative=False):
     if relative:
         is_relative=1 #yaw relative to direction of travel
     else:
