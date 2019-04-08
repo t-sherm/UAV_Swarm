@@ -26,6 +26,13 @@ vehicle = connect('/dev/serial0', wait_ready=True, baud = 57600)
 # ---------- TODO -----------------
 # Tristan Cady: make a function that sends an ack
 
+
+# Desired parameters
+flightAltitude = 10 #meters
+
+
+
+
 # Radio Configuration
 # Configure Radio SPI Connections
 radio = RF24(25,0)
@@ -69,9 +76,9 @@ while not vehicle.armed:
     print("Waiting for arming...")
     time.sleep(1)
 
-vehicle.simple_takeoff(10)
+vehicle.simple_takeoff(flightAltitude)
 
-while vehicle.location.global_relative_frame.alt<=aTargetAltitude*0.95:
+while vehicle.location.global_relative_frame.alt<=flightAltitude*0.95:
     print("Ascending to target altitude...")
     time.sleep(1)
     
