@@ -70,7 +70,13 @@ while not vehicle.armed:
     time.sleep(1)
 
 vehicle.simple_takeoff(10)
-time.sleep(20)
+
+while vehicle.location.global_relative_frame.alt<=aTargetAltitude*0.95:
+    print("Ascending to target altitude...")
+    time.sleep(1)
+    
+print("Reached target altitude")
+
 # Wait for receipt of messages
 # ------------ TODO -------------
 # Tristan Cady: Somehow have the code wait until we make sure the connection to the other computer is secured
