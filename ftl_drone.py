@@ -64,7 +64,7 @@ packets_recieved = 0
 
 # Wait for toggle from aircraft
 # Takeoff to 10m
-safetySw = 0
+safetySw = 111110
 while safetySw < 1500:
     
     safetySw = vehicle.channels['5']
@@ -73,18 +73,18 @@ while safetySw < 1500:
 
 vehicle.mode = VehicleMode("STABILIZE")
 time.sleep(1)
-vehicle.armed = True
-while not vehicle.armed:
-    print("Waiting for arming...")
-    time.sleep(1)
+#vehicle.armed = True
+#while not vehicle.armed:
+#    print("Waiting for arming...")
+#    time.sleep(1)
 
 vehicle.mode = VehicleMode("GUIDED")
 time.sleep(1)
-vehicle.simple_takeoff(flightAltitude)
+#vehicle.simple_takeoff(flightAltitude)
 
-while vehicle.location.global_relative_frame.alt<=flightAltitude*0.95:
-    print("Ascending to target altitude...")
-    time.sleep(1)
+#while vehicle.location.global_relative_frame.alt<=flightAltitude*0.95:
+#    print("Ascending to target altitude...")
+#    time.sleep(1)
     
 print("Reached target altitude")
 
@@ -148,7 +148,6 @@ while True:
         separationVector = ftl_definitions.calculateSeparationVector(boid,0)
         velocity = ftl_definitions.updateVelocity(boid,1,cohesionVector, separationVector)
 
-        velocity[0] = 1
         print('velocities')
         print(velocity[0])
         print(velocity[1])
