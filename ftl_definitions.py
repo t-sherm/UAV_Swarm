@@ -173,8 +173,8 @@ def calculateCohesionVector(boidVector, currentBoid):
     
     # Vector pointing towards the phantom vector with magnitude relative to V_max
     # [ Vx, Vy, Vz, New Heading angle]
-    #cohesionVector = [cohesionMag * math.cos(theta_phantom), cohesionMag * math.sin(theta_phantom), 0, leaderHdg]
-    cohesionVector = [0, 0, 0, 0]
+    cohesionVector = [cohesionMag * math.cos(theta_phantom), cohesionMag * math.sin(theta_phantom), 0, leaderHdg]
+    #cohesionVector = [0, 0, 0, 0]
     return cohesionVector
 
 
@@ -201,8 +201,8 @@ def calculateSeparationVector(boidVector, currentBoid):
         separationVector = [x * separationMagnitude for x in separationVector]
         
                             #    Vx                       Vy        alt  hdg
-        #separationVector = [separationVector[0], separationVector[1], 0,  0  ]
-        separationVector = [0,0,0,0]       
+        separationVector = [separationVector[0], separationVector[1], 0,  0  ]
+        #separationVector = [0,0,0,0]       
         return separationVector
     return [0,0,0,0]
     
