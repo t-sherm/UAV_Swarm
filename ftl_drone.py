@@ -64,18 +64,22 @@ packets_recieved = 0
 
 # Wait for toggle from aircraft
 # Takeoff to 10m
-safetySw = 1600
+safetySw = 0
 while safetySw < 1500:
     
     safetySw = vehicle.channels['5']
     print (" Ch5: %s" % safetySw)
-    
-vehicle.mode = VehicleMode("GUIDED")
+    time.sleep(1)
+
+vehicle.mode = VehicleMode("STABILIZE")
+time.sleep(1)
 vehicle.armed = True
 while not vehicle.armed:
     print("Waiting for arming...")
     time.sleep(1)
 
+vehicle.mode = VehicleMode("GUIDED")
+time.sleep(1)
 vehicle.simple_takeoff(flightAltitude)
 
 while vehicle.location.global_relative_frame.alt<=flightAltitude*0.95:
@@ -138,17 +142,25 @@ while True:
             boid[1].hdg = hdg
             packets_recieved += 1
 
+
         #Calculate steering vector for the boid
         cohesionVector = ftl_definitions.calculateCohesionVector(boid,0)
         separationVector = ftl_definitions.calculateSeparationVector(boid,0)
         velocity = ftl_definitions.updateVelocity(boid,1,cohesionVector, separationVector)
-        
+
+        velocity[0] = 1
+        print('velocities')
+        print(velocity[0])
+        print(velocity[1])
+        print(velocity[2])
+        print(velocity[3])
+
         # Command a velocity to the boid
         ftl_definitions.send_ned_velocity(vehicle, velocity[0], velocity[1], velocity[2], 1)
-       
+        time.sleep(2)
         # Command heading (rotation/yaw)
         command_yaw(vehicle, velocity[3], relative=False)   
-        
+        time.sleep(2)
         
         
     else:
