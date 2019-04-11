@@ -92,7 +92,7 @@ def start_network():
 		while network.available():
             		header, o_payload = network.read(16)
             		lat, lon, alt, hdg = unpack('<ffff', bytes(o_payload))
-         		#print('Recieved Payload', ' Lat: ', lat, ' Lon: ', lon, ' Alt:', alt, ' Hdg: ', hdg, ' | From ', oct(header.from_node))
+         		print('Recieved Payload', ' Lat: ', lat, ' Lon: ', lon, ' Alt:', alt, ' Hdg: ', hdg, ' | From ', oct(header.from_node))
     		
 			semaphore.acquire()
 			#..CRITICAL REGION        
@@ -114,14 +114,14 @@ vehicle = connect('/dev/serial0', wait_ready=True, baud = 57600)
 # ---------- TODO -----------------
 # Tristan Cady: make a function that sends an ack
 
-r_lat = 0
-r_lon = 0
-r_alt = 0
-r_hdg = 0
-s_lat = 0
-s_lon = 0
-s_alt = 0
-s_hdg = 0
+r_lat = 1
+r_lon = 1
+r_alt = 1
+r_hdg = 1
+s_lat = 1
+s_lon = 1
+s_alt = 1
+s_hdg = 1
 
 # Desired parameters
 flightAltitude = 10 #meters
@@ -140,6 +140,8 @@ boid = [1]*2
 boid[0] = Boid('ourBoid',[ 1, 0, 0], [0, 0, 0])
 boid[1] = Boid('otherBoid', [ 0, 1, 0], [0, 0, 0])
 
+
+print("TEST")
 # While loop ------------------------
 while True:
     
@@ -177,8 +179,9 @@ while True:
 	boid[1].position[1] = r_lon
 	boid[1].position[2] = r_alt
 	boid[1].hdg = r_hdg
-	semaphore.release()	
+	semaphore.release()
 
+	print('Lat:',boid[1].position[0],' Lon:',boid[1].position[1])	
         #Calculate steering vector for the boid
         cohesionVector = ftl_definitions.calculateCohesionVector(boid,0)
         separationVector = ftl_definitions.calculateSeparationVector(boid,0)
