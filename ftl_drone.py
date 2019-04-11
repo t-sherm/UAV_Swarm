@@ -69,7 +69,10 @@ def start_network():
 
 	#Send and Recieve Loop
 	while 1:
-		
+		#Update Network
+		network.update()
+		print('Packets Sent: ', packets_sent, ' Packets Recieved: ', packets_recieved)
+
 		#Send Information
 	
 		semaphore.acquire()
@@ -166,10 +169,6 @@ boid[1] = Boid('otherBoid', [ 0, 1, 0], [0, 0, 0])
 while True:
     
     if safetySw > 1500:
-
-        # Update network
-        network.update()
-        print('Packets Sent: ', packets_sent, ' Packets Recieved: ', packets_recieved)
 
         # Calculatie new position
         # Get velocity and position of the controlled boid
