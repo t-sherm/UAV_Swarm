@@ -193,7 +193,7 @@ while True:
         print('velocity[3]: heading: ', velocity[3])
         
         # Command a velocity to the boid
-        ftl_definitions.send_ned_velocity(vehicle, velocity[0], velocity[1], velocity[2], 1)
+        ftl_definitions.send_ned_velocity(vehicle, velocity[1], velocity[0], velocity[2], 1)
        
         # Command heading (rotation/yaw)
         command_yaw(vehicle, velocity[3], relative=False)   
