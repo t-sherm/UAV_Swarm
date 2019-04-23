@@ -79,7 +79,7 @@ def start_network():
 		#..CRITICAL REGION
 		payload = pack('<ffff', s_lat, s_lon, s_alt, s_hdg)
 		#..END CRITICAL REGION
-       semaphore.release()
+       		semaphore.release()
 		
 		ok = network.write(RF24NetworkHeader(other_node), payload)
         	if ok:
