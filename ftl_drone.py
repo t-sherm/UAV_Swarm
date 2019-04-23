@@ -138,24 +138,35 @@ while safetySw < 1500:
     
     safetySw = vehicle.channels['5']
     print (" Ch5: %s" % safetySw)
+
+    
+# Wait for toggle from aircraft
+# Takeoff to 10m
+safetySw = 111110
+while safetySw < 1500:
+
+    safetySw = vehicle.channels['5']
+    print (" Ch5: %s" % safetySw)
     time.sleep(1)
 
 vehicle.mode = VehicleMode("STABILIZE")
 time.sleep(1)
-vehicle.armed = True
-while not vehicle.armed:
-    print("Waiting for arming...")
-    time.sleep(1)
+#vehicle.armed = True
+#while not vehicle.armed:
+#    print("Waiting for arming...")
+#    time.sleep(1)
 
 vehicle.mode = VehicleMode("GUIDED")
 time.sleep(1)
-vehicle.simple_takeoff(flightAltitude)
+#vehicle.simple_takeoff(flightAltitude)
 
-while vehicle.location.global_relative_frame.alt<=flightAltitude*0.95:
-    print("Ascending to target altitude...")
-    time.sleep(1)
-    
+#while vehicle.location.global_relative_frame.alt<=flightAltitude*0.95:
+#    print("Ascending to target altitude...")
+#    time.sleep(1)
+
+
 print("Reached target altitude")
+
 
 # Wait for receipt of messages
 # ------------ TODO -------------
@@ -208,12 +219,10 @@ while True:
         separationVector = ftl_definitions.calculateSeparationVector(boid,0)
         velocity = ftl_definitions.updateVelocity(boid,1,cohesionVector, separationVector)
 
-        print('velocities')
-        print(velocity[0])
-        print(velocity[1])
-        print(velocity[2])
-        print(velocity[3])
-
+        
+        print('velocity[0]: lat: ', velocity[0])
+        print('velocity[1]: llon: ', velocity[1])
+        
         # Command a velocity to the boid
         ftl_definitions.send_ned_velocity(vehicle, velocity[0], velocity[1], velocity[2], 1)
         time.sleep(2)

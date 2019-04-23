@@ -156,6 +156,7 @@ while True:
         print("Leader")
         print(boid[1].position[0])
         print(boid[1].position[1])
+        print(boid[1].hdg)
         # Obtain the heading value of the controlled boid
         boid[0].hdg = vehicle.heading
 
@@ -186,6 +187,10 @@ while True:
         cohesionVector = ftl_definitions.calculateCohesionVector(boid,0)
         separationVector = ftl_definitions.calculateSeparationVector(boid,0)
         velocity = ftl_definitions.updateVelocity(boid,1,cohesionVector, separationVector)
+
+        print('velocity[0]: lat: ', velocity[0])
+        print('velocity[1]: lon: ', velocity[1])
+        print('velocity[3]: heading: ', velocity[3])
         
         # Command a velocity to the boid
         ftl_definitions.send_ned_velocity(vehicle, velocity[0], velocity[1], velocity[2], 1)
