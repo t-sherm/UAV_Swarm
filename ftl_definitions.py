@@ -120,8 +120,8 @@ def GPStoNED(location1, location2):
     earth's poles. It comes from the ArduPilot test code:
     https://github.com/diydrones/ardupilot/blob/master/Tools/autotest/common.py
     """
-    dlat = location2Lat - location1Lat
-    dlong = location2Lon - location1Lon
+    dlat = (location2Lat - location1Lat)* 1.113195e5
+    dlong = (location2Lon - location1Lon)* 1.113195e5
     #return math.sqrt((dlat*dlat) + (dlong*dlong)) * 1.113195e5
     return [dlat,dlong]
 
