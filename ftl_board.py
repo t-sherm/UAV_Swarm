@@ -79,7 +79,7 @@ def start_network():
 		#..CRITICAL REGION
 		payload = pack('<ffff', s_lat, s_lon, s_alt, s_hdg)
 		#..END CRITICAL REGION
-        	semaphore.release()
+       semaphore.release()
 		
 		ok = network.write(RF24NetworkHeader(other_node), payload)
         	if ok:
@@ -92,7 +92,7 @@ def start_network():
 		while network.available():
             		header, o_payload = network.read(16)
             		lat, lon, alt, hdg = unpack('<ffff', bytes(o_payload))
-         		print('Recieved Payload', ' Lat: ', lat, ' Lon: ', lon, ' Alt:', alt, ' Hdg: ', hdg, ' | From ', oct(header.from_node))
+         		#print('Recieved Payload', ' Lat: ', lat, ' Lon: ', lon, ' Alt:', alt, ' Hdg: ', hdg, ' | From ', oct(header.from_node))
     		
 			semaphore.acquire()
 			#..CRITICAL REGION        
@@ -104,7 +104,7 @@ def start_network():
 			semaphore.release()
 			
             		packets_recieved += 1
-		time.sleep(0.5)
+		time.sleep(0.25)
 
 
 # Startup
