@@ -71,7 +71,7 @@ def start_network():
 	while 1:
 		#Update Network
 		network.update()
-		print('Packets Sent: ', packets_sent, ' Packets Recieved: ', packets_recieved)
+		#print('Packets Sent: ', packets_sent, ' Packets Recieved: ', packets_recieved)
 
 		#Send Information
 	
