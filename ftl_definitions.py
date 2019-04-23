@@ -67,50 +67,63 @@ def norm(vector):
     return unitVector
 
 
-def GPStoNED(currentPos, nextPos):
+def GPStoNED(location1, location2):
     #Vector from currentPos to nextPos
 
-    TO_RADIANS = pi/180
-    KM_TO_M = 1000
-    RADIUS_EARTH = 6378.037 # km
+    #TO_RADIANS = pi/180
+   # KM_TO_M = 1000
+   # RADIUS_EARTH = 6378.037 # km
     
-    currentLat = currentPos[0]
-    currentLon = currentPos[1]
-    nextLat = nextPos[0]
-    nextLon = nextPos[1]
+    location1Lat = location1[0]
+    location1Lon = location2[1]
+    location2Lat = nextPos[0]
+    location2Lon = nextPos[1]
     
-     #Convert to radians
-    latRad = currentLat * TO_RADIANS
-    lonRad = currentLon * TO_RADIANS
-    
-    #Find delta in positions
-    deltaLat = (nextLat - currentLat) * TO_RADIANS
-    deltaLon = (nextLon - currentLon) * TO_RADIANS
-    
-    # Math from: http://www.movable-type.co.uk/scripts/latlong.html
-    # Using the above math to calculate dlon, we assume dlat = 0. This
-    # simplifies the equation
-    
-    # Calculate x cartesian distance (longitude distance): no longer NED frame
-    varDlon = (math.cos(latRad))**2 * (math.sin(deltaLon/2))**2
-    dx_cart = 2 * math.atan2(math.sqrt(varDlon),math.sqrt(1-varDlon)) * RADIUS_EARTH * KM_TO_M
-    
-    if deltaLon < 0:
-        dx_cart = -dx_cart
-    
+# =============================================================================
+#      #Convert to radians
+#     latRad = currentLat * TO_RADIANS
+#     lonRad = currentLon * TO_RADIANS
+#     
+#     #Find delta in positions
+#     deltaLat = (nextLat - currentLat) * TO_RADIANS
+#     deltaLon = (nextLon - currentLon) * TO_RADIANS
+#     
+#     # Math from: http://www.movable-type.co.uk/scripts/latlong.html
+#     # Using the above math to calculate dlon, we assume dlat = 0. This
+#     # simplifies the equation
+#     
+#     # Calculate x cartesian distance (longitude distance): no longer NED frame
+#     varDlon = (math.cos(latRad))**2 * (math.sin(deltaLon/2))**2
+#     dx_cart = 2 * math.atan2(math.sqrt(varDlon),math.sqrt(1-varDlon)) * RADIUS_EARTH * KM_TO_M
+#     
+#     if deltaLon < 0:
+#         dx_cart = -dx_cart
+#     
+#         
+#     # Calculate dlat. Assume dlon = 0
+#     varDlat = math.sin(deltaLat/2)**2
+#     dy_cart = 2 * math.atan2(math.sqrt(varDlat),math.sqrt(1-varDlat)) * RADIUS_EARTH * KM_TO_M
+#     
+#     if deltaLat < 0:
+#         dy_cart = -dy_cart
+#     
+#     # Convert to NED frame
+#     dx_ned = dy_cart
+# =============================================================================
+#    dy_ned = dx_cart
         
-    # Calculate dlat. Assume dlon = 0
-    varDlat = math.sin(deltaLat/2)**2
-    dy_cart = 2 * math.atan2(math.sqrt(varDlat),math.sqrt(1-varDlat)) * RADIUS_EARTH * KM_TO_M
-    
-    if deltaLat < 0:
-        dy_cart = -dy_cart
-    
-    # Convert to NED frame
-    dx_ned = dy_cart
-    dy_ned = dx_cart
-        
-    return [dx_ned,dy_ned]
+# def get_distance_metres(aLocation1, aLocation2): Function pulled from dronekit documentation
+    """
+    Returns the ground distance in metres between two `LocationGlobal` or `LocationGlobalRelative` objects.
+
+    This method is an approximation, and will not be accurate over large distances and close to the
+    earth's poles. It comes from the ArduPilot test code:
+    https://github.com/diydrones/ardupilot/blob/master/Tools/autotest/common.py
+    """
+    dlat = location2Lat - location1Lat
+    dlong = location2Lon - location1Lon
+    #return math.sqrt((dlat*dlat) + (dlong*dlong)) * 1.113195e5
+    return [dlat,dlong]
 
     # Definitions TODO: Try to use a pointer instead of direct substitution?
 def send_ned_velocity(vehicle, velocity_x, velocity_y, velocity_z, duration):
