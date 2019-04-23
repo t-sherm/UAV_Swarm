@@ -75,9 +75,9 @@ def GPStoNED(location1, location2):
    # RADIUS_EARTH = 6378.037 # km
     
     location1Lat = location1[0]
-    location1Lon = location2[1]
-    location2Lat = nextPos[0]
-    location2Lon = nextPos[1]
+    location1Lon = location1[1]
+    location2Lat = location2[0]
+    location2Lon = location2[1]
     
 # =============================================================================
 #      #Convert to radians
