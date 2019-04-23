@@ -70,19 +70,32 @@ while safetySw < 1500:
     safetySw = vehicle.channels['5']
     print (" Ch5: %s" % safetySw)
     
+# Wait for toggle from aircraft
+# Takeoff to 10m
+safetySw = 111110
+while safetySw < 1500:
+
+    safetySw = vehicle.channels['5']
+    print (" Ch5: %s" % safetySw)
+    time.sleep(1)
+
+vehicle.mode = VehicleMode("STABILIZE")
+time.sleep(1)
+#vehicle.armed = True
+#while not vehicle.armed:
+#    print("Waiting for arming...")
+#    time.sleep(1)
+
 vehicle.mode = VehicleMode("GUIDED")
-vehicle.armed = True
-while not vehicle.armed:
-    print("Waiting for arming...")
-    time.sleep(1)
+time.sleep(1)
+#vehicle.simple_takeoff(flightAltitude)
 
-vehicle.simple_takeoff(flightAltitude)
+#while vehicle.location.global_relative_frame.alt<=flightAltitude*0.95:
+#    print("Ascending to target altitude...")
+#    time.sleep(1)
 
-while vehicle.location.global_relative_frame.alt<=flightAltitude*0.95:
-    print("Ascending to target altitude...")
-    time.sleep(1)
-    
 print("Reached target altitude")
+
 
 # Wait for receipt of messages
 # ------------ TODO -------------
