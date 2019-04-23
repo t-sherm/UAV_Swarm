@@ -90,7 +90,7 @@ while True:
         print("Leader")
         print(boid[1].position[0])
         print(boid[1].position[1])
-        print(boid[1].velocity[3])
+        print(boid[1].hdg)
         # Obtain the heading value of the controlled boid
         boid[0].hdg = vehicle.heading
 
