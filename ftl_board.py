@@ -122,7 +122,9 @@ while True:
         cohesionVector = ftl_definitions.calculateCohesionVector(boid,0)
         separationVector = ftl_definitions.calculateSeparationVector(boid,0)
         velocity = ftl_definitions.updateVelocity(boid,1,cohesionVector, separationVector)
-        
+
+        print('velocity[0]: lat: ', velocity[0])
+        print('velocity[1]: llon: ', velocity[1])
         # Command a velocity to the boid
         ftl_definitions.send_ned_velocity(vehicle, velocity[0], velocity[1], velocity[2], 1)
        
